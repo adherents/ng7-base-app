@@ -1,0 +1,74 @@
+<section class="signup-form">
+  <form 
+    fxLayout="column" 
+    fxLayoutAlign="center center" 
+    fxLayoutGap="15px"
+    #f="ngForm" 
+    (ngSubmit)="onSubmit(f)">
+    <mat-form-field hintLabel="Should be at least 3 characters long">
+      <input 
+        type="name" 
+        matInput 
+        placeholder="Your name"
+        ngModel
+        name="name"
+        required
+        minlength="3"
+        maxlength="25"
+        #nameInput="ngModel">
+      <mat-hint align="end">{{ nameInput.value?.length }} / 3</mat-hint>
+      <mat-error>Has to be at least 3 characters long.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input 
+        type="email" 
+        matInput 
+        placeholder="Your email"
+        ngModel
+        name="email"
+        email
+        required
+        #emailInput="ngModel">
+      <mat-error *ngIf="emailInput.hasError('required')">Field must not be empty.</mat-error>
+      <mat-error *ngIf="!emailInput.hasError('required')">Email is invalid.</mat-error>
+    </mat-form-field>
+    <mat-form-field hintLabel="Should be 10 characters long">
+      <input 
+        type="phone" 
+        matInput 
+        placeholder="Your phone"
+        ngModel
+        name="phone"
+        required
+        minlength="10"
+        maxlength="10"
+        pattern="[0-9]+"
+        #phoneInput="ngModel">
+      <mat-error *ngIf="phoneInput.hasError('required')">Field must not be empty.</mat-error>
+      <mat-error *ngIf="!phoneInput.hasError('required')">Phone number is invalid.</mat-error>
+    </mat-form-field>
+    <mat-form-field hintLabel="Should be at least 8 characters long">
+      <input 
+        type="password" 
+        matInput placeholder="Your password"
+        ngModel
+        name="password"
+        required
+        minlength="8"
+        maxlength="25"
+        pattern="^(?=.*[a-z])(?=.*[A-Z])((?=.*\d)|(?=.*[@$!%*?#&]))[A-Za-z\d@$!%*?#&]{8,}$"
+        #passInput="ngModel">
+      <mat-hint align="end">{{ passInput.value?.length }} / 8</mat-hint>
+      <mat-error *ngIf="passInput.hasError('required')">Has to be at least 8 characters long.</mat-error>
+      <mat-error *ngIf="!passInput.hasError('required')">Must contain at least one uppercase letter, one lowercase letter and one number or special character</mat-error>
+    </mat-form-field>
+    <br>
+    <button 
+      *ngIf="!isLoading"
+      type="submit" 
+      mat-raised-button 
+      color="primary"
+      [disabled]="f.invalid">Submit</button>
+    <mat-spinner *ngIf="isLoading" diameter="40"></mat-spinner>
+  </form>
+</section>

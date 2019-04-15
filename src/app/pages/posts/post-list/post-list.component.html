@@ -1,0 +1,18 @@
+<section>
+  <mat-card *ngFor="let post of posts | async">
+    <mat-card-content routerLink="{{post.id}}">
+      <img mat-card-image src="{{post.image}}" alt="{{post.title}}">
+      <h2>{{post.title}}</h2>
+    </mat-card-content>
+    <mat-card-actions>
+      <div fxLayout="row" fxLayoutAlign="end center">
+        <p>
+          <small>Posted by {{post.author}}  on {{post.published.toDate() | date:'MMMM d, y, HH:mm a'}}</small>
+        </p>
+        <button mat-icon-button (click)="delete(post.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</section>

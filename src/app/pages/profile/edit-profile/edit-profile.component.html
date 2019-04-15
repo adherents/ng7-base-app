@@ -1,0 +1,60 @@
+<section class="profile" fxLayout fxLayoutAlign="center">
+  <mat-card fxFlex.xs="100%" fxFlex="400px">
+    <mat-card-header *ngIf="isLoading" fxLayoutAlign="center">
+      <mat-spinner diameter="40"></mat-spinner>
+    </mat-card-header>
+    <mat-card-content fxLayoutGap="10px" fxLayout="column" fxLayoutAlign="center center" *ngIf="!isLoading">
+    <form 
+    fxLayout="column" 
+    fxLayoutAlign="center center" 
+    fxLayoutGap="15px"
+    #f="ngForm" 
+    (ngSubmit)="onSubmit(f)">
+    <img *ngIf="!downloadUrl" mat-card-avatar fxLayoutAlign="center center" class="avatar" [src]="currentUser?.photoUrl" alt="Profile avatar">
+    <img *ngIf="downloadUrl" mat-card-avatar fxLayoutAlign="center center" class="avatar" [src]="downloadUrl" alt="Profile avatar">
+    <label class="custom-file-upload" fxLayout>
+      <input type="file" (change)="uploadImage($event)" accept=".png,.jpg">
+      <i class="material-icons">cloud_upload</i> Upload avatar
+    </label>
+    <mat-progress-bar *ngIf="uploadPercentage && !downloadUrl" mode="determinate" value="{{uploadPercentage | async}}"></mat-progress-bar>
+    <div style="padding-top:10px;"><span>Email: </span>{{currentUser?.email}}</div>
+    <mat-form-field hintLabel="Should be at least 3 characters long">
+      <input 
+        type="name" 
+        matInput 
+        placeholder="Your name"
+        [(ngModel)]="currentUser.name"
+        name="name"
+        required
+        minlength="3"
+        maxlength="25"
+        #nameInput="ngModel">
+      <mat-hint align="end">{{ nameInput.value?.length }} / 3</mat-hint>
+      <mat-error>Has to be at least 3 characters long.</mat-error>
+    </mat-form-field>
+    <mat-form-field hintLabel="Should be 10 characters long">
+      <input 
+        type="phone" 
+        matInput 
+        placeholder="Your phone"
+        [(ngModel)]="currentUser.phone"
+        name="phone"
+        required
+        minlength="10"
+        maxlength="10"
+        pattern="[0-9]+"
+        #phoneInput="ngModel">
+      <mat-error *ngIf="phoneInput.hasError('required')">Field must not be empty.</mat-error>
+      <mat-error *ngIf="!phoneInput.hasError('required')">Phone number is invalid.</mat-error>
+    </mat-form-field>
+    <br>
+    <button 
+      *ngIf="!isLoading"
+      type="submit" 
+      mat-raised-button 
+      color="primary"
+      [disabled]="f.invalid || !avatarLoaded && f.pristine">Submit</button>
+    </form>
+    </mat-card-content>
+  </mat-card>
+</section>

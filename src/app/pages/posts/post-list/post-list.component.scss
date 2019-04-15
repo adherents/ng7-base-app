@@ -1,0 +1,17 @@
+section {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px,1fr));
+  grid-template-rows: auto;
+  grid-gap: 20px;
+  margin: 0 auto;
+  max-width: 90%;
+}
+
+mat-card {
+  margin: 10px 0;
+  max-width: 300px;
+}
+
+.mat-card-content {
+  cursor: pointer;
+}

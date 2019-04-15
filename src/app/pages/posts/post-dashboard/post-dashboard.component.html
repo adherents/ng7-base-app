@@ -1,0 +1,62 @@
+<section>
+  <mat-accordion>
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Create a Post
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <form 
+        #f="ngForm" 
+        fxLayout="column"
+        fxLayoutAlign="start center"
+        fxLayoutGap="15px"
+        (ngSubmit)="createPost(); f.resetForm()">
+        <label style="margin-bottom:15px;" class="custom-file-upload" fxLayout>
+          <input type="file" (change)="uploadImage($event)" accept=".png,.jpg">
+          <i class="material-icons">cloud_upload</i>Upload image
+        </label>
+        <mat-progress-bar *ngIf="uploadPercentage && !image" mode="determinate" value="{{uploadPercentage | async}}"></mat-progress-bar>
+        <div *ngIf="image">
+          <img [src]="image">
+        </div>
+        <mat-form-field hintLabel="Should be at least 3 characters long">
+          <input 
+            matInput 
+            placeholder="Post title" 
+            [(ngModel)]="title" 
+            name="title"
+            required
+            minlength="3"
+            maxlength="25">
+          <mat-error>Has to be at least 3 characters long.</mat-error>
+        </mat-form-field>
+        <mat-form-field hintLabel="Should be at least 10 characters long">
+          <textarea 
+            matInput 
+            placeholder="Post content" 
+            [(ngModel)]="content" 
+            name="content" 
+            required
+            minlength="10"
+            maxlength="250"
+            rows="5"></textarea>
+          <mat-error>Has to be at least 10 characters long.</mat-error>
+        </mat-form-field>
+        <div fxLayoutGap="20px">
+          <button 
+            mat-raised-button 
+            type="submit"
+            color="accent" 
+            routerLink="/blog"
+            [disabled]="f.invalid || !image">Create Post</button>
+          <button
+            type="button"
+            color="primary"
+            routerLink="/blog"
+            mat-raised-button>Back</button>
+        </div>
+      </form>
+  </mat-expansion-panel>
+  </mat-accordion>
+</section>

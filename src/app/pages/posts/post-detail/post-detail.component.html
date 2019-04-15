@@ -1,0 +1,72 @@
+<ng-container *ngIf="post">
+  <div *ngIf="editMode" fxFlexOffset="5" fxFlex="90">
+    <mat-card>
+      <form #f="ngForm" (ngSubmit)="updatePost(f)">
+        <h2>Edit Post</h2>
+        <mat-form-field hintLabel="Should be at least 3 characters long">
+          <input 
+            matInput 
+            placeholder="Post title" 
+            [(ngModel)]="post.title" 
+            name="title"
+            required
+            minlength="3"
+            maxlength="25">
+          <mat-error>Has to be at least 3 characters long.</mat-error>
+        </mat-form-field>
+        <br>
+        <mat-form-field hintLabel="Should be at least 10 characters long">
+          <textarea 
+            matInput 
+            placeholder="Post content" 
+            [(ngModel)]="post.content" 
+            name="content" 
+            required
+            minlength="10"
+            maxlength="250"
+            rows="5"></textarea>
+          <mat-error>Has to be at least 10 characters long.</mat-error>
+        </mat-form-field>
+        <br>
+        <button 
+          mat-raised-button 
+          type="submit" 
+          style="margin-right:20px;" 
+          color="accent"
+          [disabled]="f.invalid || f.pristine">Save</button>
+        <button 
+          mat-raised-button 
+          color="primary"
+          type="button" 
+          (click)="editMode=false">Cancel</button>
+      </form>
+  </mat-card>
+  </div>
+  <div *ngIf="!editMode" fxFlexOffset="5" fxFlex="90">
+    <mat-card>
+      <img mat-card-image src="{{post.image}}" alt="{{post.title}}">
+      <h2>{{post.title}}</h2>
+      <p>
+        <small>Posted by {{post.author}} &bull; on {{post.published.toDate() | date:'MMMM d, y, HH:mm a'}}</small>
+      </p>
+      <mat-card-content>
+        <p>{{ post.content }}</p>
+      </mat-card-content>
+      <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+        <div>
+          <button mat-icon-button (click)="editMode=true">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="delete(post.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        <button
+          type="button"
+          color="primary"
+          routerLink="/blog"
+          mat-raised-button>Back</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</ng-container>

@@ -1,0 +1,22 @@
+.profile {
+  padding: 30px;
+}
+
+.mat-card-avatar {
+  width: 150px;
+  height: 150px;
+  margin: auto;
+  margin-bottom: 20px !important;
+}
+
+.mat-card-content {
+  font-size: 1.2em;
+}
+
+span {
+  font-weight: bold;
+}
+
+.mat-card>.mat-card-actions:last-child {
+  padding-bottom: 15px;
+}

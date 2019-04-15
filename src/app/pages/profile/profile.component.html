@@ -1,0 +1,16 @@
+<section class="profile" fxLayout fxLayoutAlign="center">
+  <mat-card fxFlex.xs="100%" fxFlex="400px">
+    <mat-card-header *ngIf="isLoading" fxLayoutAlign="center">
+      <mat-spinner diameter="40"></mat-spinner>
+    </mat-card-header>
+    <mat-card-content fxLayoutGap="10px" fxLayout="column" fxLayoutAlign="center center" *ngIf="!isLoading">
+      <img mat-card-avatar fxLayoutAlign="center center" class="avatar" [src]="currentUser?.photoUrl" alt="Profile avatar">
+      <div><span>Name: </span>{{currentUser?.name}}</div>
+      <div><span>Email: </span>{{currentUser?.email}}</div>
+      <div><span>Phone: </span>{{currentUser?.phone}}</div>
+    </mat-card-content>
+    <mat-card-actions fxLayoutAlign="center" *ngIf="!isLoading">
+      <button [routerLink]="'/profile/' + currentUser?.id + '/edit'" mat-raised-button color="primary" type="button">Update profile</button>
+    </mat-card-actions>
+  </mat-card>
+</section>
